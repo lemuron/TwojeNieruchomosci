@@ -45,7 +45,7 @@ CREATE TABLE `tbl_user` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`student`@`%` PROCEDURE `sp_createUser`(
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_createUser`(
 	IN p_name VARCHAR(40),
     IN p_username VARCHAR(40),
     IN p_password VARCHAR(255)
@@ -78,7 +78,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`student`@`%` PROCEDURE `sp_validateLogin`(
+CREATE DEFINER=`root`@`%` PROCEDURE `sp_validateLogin`(
 IN p_username VARCHAR(20)
 )
 BEGIN
