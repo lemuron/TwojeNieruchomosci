@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `tbl_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_user` (
-  `user_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) DEFAULT NULL,
   `user_username` varchar(255) DEFAULT NULL,
   `user_password` varchar(255) DEFAULT NULL,
