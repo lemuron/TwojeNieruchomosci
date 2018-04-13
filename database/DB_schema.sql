@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `tbl_user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_user` (
   `user_id` bigint(20) NOT NULL,
-  `user_name` varchar(45) DEFAULT NULL,
-  `user_username` varchar(45) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_username` varchar(255) DEFAULT NULL,
   `user_password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id` (`user_id`)
@@ -46,8 +46,8 @@ CREATE TABLE `tbl_user` (
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_createUser`(
-	IN p_name VARCHAR(40),
-    IN p_username VARCHAR(40),
+	IN p_name VARCHAR(255),
+    IN p_username VARCHAR(255),
     IN p_password VARCHAR(255)
     )
 BEGIN
@@ -79,7 +79,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` PROCEDURE `sp_validateLogin`(
-IN p_username VARCHAR(20)
+IN p_username VARCHAR(255)
 )
 BEGIN
     select * from tbl_user where user_username = p_username;
