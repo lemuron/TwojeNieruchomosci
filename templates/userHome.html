@@ -5,20 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://www.free-icons-download.net/images/office-building-icon-68706.png">
 
     <title>TwojeNieruchomości</title>
 
-    <script src="../static/js/jquery-3.3.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- Bootstrap core JS -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.0/examples/jumbotron/jumbotron.css" rel="stylesheet">
+    <!--<link href="https://getbootstrap.com/docs/4.0/examples/jumbotron/jumbotron.css" rel="stylesheet">-->
 
       <!-- Font Awesome icons -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -58,39 +52,48 @@
 
     <main role="main">
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3"><br>Witaj!</h1>
-          <p>Witamy w aplikacji do zarządzania wynajmem nieruchomości</p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Dowiedz się więcej &raquo;</a></p>
+          <h1 class="display-3"><br>...</h1>
+          <p>wykresy/statystyki tutaj :)</p>
+          <p><a class="btn btn-primary btn-lg" href="#" role="button">Nie klikaj w to!</a></p>
         </div>
       </div>
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-4">
-              <img src="https://cdn4.iconfinder.com/data/icons/stroke-business/512/client_list_text-128.png">
-            <h2>Baza</h2>
-            <p>Tutaj sprawdzisz co, kto, od kogo wynajmuje</p>
-            <p><a class="btn btn-secondary" href="/baza" role="button">Przejdź &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-              <img src="https://cdn4.iconfinder.com/data/icons/stroke-business/512/tasks_scheduled_folder_google-128.png">
-            <h2>Rachunki</h2>
-            <p>Tutaj wprowadzisz i sprawdzisz rachunki, możesz też przypomnieć najemcom o ich zaległościach </p>
-            <p><a class="btn btn-secondary" href="/rachunki" role="button">Przejdź &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-              <img src="https://cdn4.iconfinder.com/data/icons/stroke-business/512/report_document_reports_paper-128.png">
-            <h2>Raporty</h2>
-            <p>Tutaj zobaczysz raporty</p>
-            <p><a class="btn btn-secondary" href="/raporty" role="button">Przejdź &raquo;</a></p>
-          </div>
-        </div>
+      <div class="container-fluid">
 
-        <hr>
+        <!--<div class="table-responsive">-->
+            <table class="table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Właściciel</th>
+                        <th>Adres</th>
+                        <th>Saldo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Krzysztof Jarzyna</td>
+                        <td>ze Szczecina</td>
+                        <td>100 000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jakub Wędrowycz</td>
+                        <td>Wojsławice</td>
+                        <td>-1</td>
+                    </tr>
+                </tbody>
+            </table>
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col">
+                <p>pierwszy najemca</p>
+            </div>
+        </div>
 
       </div> <!-- /container -->
 
@@ -100,5 +103,10 @@
       <p>&copy; Company 2018</p>
     </footer>
 
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   </body>
 </html>
