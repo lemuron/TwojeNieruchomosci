@@ -23,7 +23,7 @@ def main():
 
 @app.route('/showSignUp')
 def showSignUp():
-    return render_template('signup.html')
+    return render_template('showSignUp.html')
 
 
 @app.route('/showSignin')
@@ -36,8 +36,14 @@ def showSignin():
 
 @app.route('/userHome')
 def userHome():
+    conn = mysql.connect()
     if session.get('user'):
-        return render_template('userHome.html')
+        cursor = conn.cursor()
+        cursor.execute("SELECT user_id, user_name, user_username FROM tbl_user")
+        users = cursor.fetchall()
+        for u in users:
+            print(u)
+        return render_template('userHome.html', users=users)
     else:
         return render_template('error.html', error='Musisz sie zalogować')
 
@@ -50,14 +56,11 @@ def logout():
 
 @app.route('/validateLogin', methods=['POST'])
 def validateLogin():
-    con = mysql.connect()
-    cursor = con.cursor()
+    conn = mysql.connect()
+    cursor = conn.cursor()
     try:
         _username = request.form['inputEmail']
         _password = request.form['inputPassword']
-
-        # connect to mysql
-
 
         cursor.callproc('sp_validateLogin', (_username,))
         data = cursor.fetchall()
@@ -76,11 +79,12 @@ def validateLogin():
         return render_template('error.html', error=str(e))
     finally:
         cursor.close()
-        con.close()
+        conn.close()
 
 
 @app.route('/signUp', methods=['POST', 'GET'])
 def signUp():
+    conn = mysql.connect()
     try:
         _name = request.form['inputName']
         _email = request.form['inputEmail']
@@ -90,8 +94,6 @@ def signUp():
         if _name and _email and _password:
 
             # All Good, let's call MySQL
-
-            conn = mysql.connect()
             cursor = conn.cursor()
             _hashed_password = generate_password_hash(_password)
             cursor.callproc('sp_createUser', (_name, _email, _hashed_password))

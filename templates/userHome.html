@@ -67,24 +67,18 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>#</th>
-                        <th>Właściciel</th>
-                        <th>Adres</th>
-                        <th>Saldo</th>
+                        <th>USER</th>
+                        <th>USERNAME</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for user in users %}
                     <tr>
-                        <td>1</td>
-                        <td>Krzysztof Jarzyna</td>
-                        <td>ze Szczecina</td>
-                        <td>100 000</td>
+                        <td>{{ user.0 }}</td>
+                        <td>{{ user.1 }}</td>
+                        <td>{{ user.2 }}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jakub Wędrowycz</td>
-                        <td>Wojsławice</td>
-                        <td>-1</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
 
