@@ -41,9 +41,9 @@ def userHome():
     conn = mysql.connect()
     if session.get('user'):
         cursor = conn.cursor(cursor=DictCursor)
-        cursor.execute("SELECT user_id, user_name, user_username FROM tbl_user")
-        users = cursor.fetchall()
-        return render_template('userHome.html', users=users)
+        cursor.execute("select pown.owner_name, pown.owner_surname, p.property_city, p.property_street, p.property_status from tbl_property p join tbl_property_owner pown on p.property_owner_id = pown.owner_id")
+        baselist = cursor.fetchall()
+        return render_template('userHome.html', baselist=baselist)
     else:
         return render_template('error.html', error='Musisz sie zalogować')
 

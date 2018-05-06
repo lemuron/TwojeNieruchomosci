@@ -66,17 +66,17 @@
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th>#</th>
-                        <th>USER</th>
-                        <th>USERNAME</th>
+                        <th>Właściciel</th>
+                        <th>Adres nieruchomości</th>
+                        <th>??Aktualny status??</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for user in users %}
+                    {% for data in baselist %}
                     <tr>
-                        <td>{{ user.user_id }}</td>
-                        <td>{{ user.user_name }}</td>
-                        <td>{{ user.user_username }}</td>
+                        <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
+                        <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
+                        <td>{{ data.property_status }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
