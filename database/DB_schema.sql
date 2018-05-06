@@ -100,3 +100,36 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2018-04-12 19:50:58
+
+DROP TABLE IF EXISTS `tbl_property_owner`;
+CREATE TABLE `tbl_property_owner` (
+  `owner_id`      BIGINT(20)  NOT NULL AUTO_INCREMENT,
+  `owner_name`    VARCHAR(64) NOT NULL,
+  `owner_surname` VARCHAR(64) NOT NULL,
+  `owner_gender`  VARCHAR(12)          DEFAULT NULL,
+  PRIMARY KEY (`owner_id`),
+  UNIQUE KEY `owner_id` (`owner_id`)
+);
+INSERT INTO tbl_property_owner (owner_name, owner_surname, owner_gender) VALUES ('Zajac', 'Tobiasz', 'MALE');
+INSERT INTO tbl_property_owner (owner_name, owner_surname, owner_gender) VALUES ('Nowicki', 'Slawomir', 'MALE');
+
+
+DROP TABLE IF EXISTS `tbl_property`;
+CREATE TABLE `tbl_property` (
+  `property_id`       BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `property_owner_id` BIGINT(20),
+  INDEX `property_owner_id__index` (`property_owner_id`),
+  FOREIGN KEY (property_owner_id)
+  REFERENCES tbl_property_owner (owner_id)
+    ON DELETE SET NULL,
+  `property_street`   VARCHAR(64),
+  `property_city`     VARCHAR(64),
+  `property_zip`      VARCHAR(64),
+  `property_status`   INT(8),
+  PRIMARY KEY (`property_id`),
+  UNIQUE KEY `property_id` (`property_id`)
+);
+INSERT INTO tbl_property (property_owner_id, property_street, property_city, property_zip, property_status) VALUES (1, 'Dzwinska 37', 'Bialystok', '15-161', 0);
+INSERT INTO tbl_property (property_owner_id, property_street, property_city, property_zip, property_status) VALUES (2, 'Maloszynska 44', 'Wroclaw', '54-014', 0);
+
+commit;
