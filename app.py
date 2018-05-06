@@ -1,6 +1,7 @@
 from flask import Flask, render_template, json, request, redirect, session
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
+from pymysql.cursors import DictCursor
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -21,6 +22,7 @@ def main():
     else:
         return render_template('index.html')
 
+
 @app.route('/showSignUp')
 def showSignUp():
     return render_template('showSignUp.html')
@@ -38,11 +40,9 @@ def showSignin():
 def userHome():
     conn = mysql.connect()
     if session.get('user'):
-        cursor = conn.cursor()
+        cursor = conn.cursor(cursor=DictCursor)
         cursor.execute("SELECT user_id, user_name, user_username FROM tbl_user")
         users = cursor.fetchall()
-        for u in users:
-            print(u)
         return render_template('userHome.html', users=users)
     else:
         return render_template('error.html', error='Musisz sie zalogować')
