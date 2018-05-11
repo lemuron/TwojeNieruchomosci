@@ -132,4 +132,22 @@ CREATE TABLE `tbl_property` (
 INSERT INTO tbl_property (property_owner_id, property_street, property_city, property_zip, property_status) VALUES (1, 'Dzwinska 37', 'Bialystok', '15-161', 0);
 INSERT INTO tbl_property (property_owner_id, property_street, property_city, property_zip, property_status) VALUES (2, 'Maloszynska 44', 'Wroclaw', '54-014', 0);
 
+CREATE TABLE `tbl_property_locator` (
+  `locator_id`      BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `locator_name`    VARCHAR(255) NOT NULL,
+  `locator_surname` VARCHAR(255) NOT NULL DEFAULT 'Janusz',
+  `locator_gender`  VARCHAR(12)          DEFAULT NULL,
+  `property_id`      BIGINT(20),
+  INDEX `property_id__index` (`property_id`),
+  FOREIGN KEY (property_id)
+  REFERENCES tbl_property (property_id)
+    ON DELETE SET NULL,
+  PRIMARY KEY (`locator_id`),
+  UNIQUE KEY `locator_id` (`locator_id`)
+);
+INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Majewska','Zofia','FEMALE',1);
+INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Wisniewska','Brygida','FEMALE',1);
+INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Chmielewski','Bogumil','MALE',2);
+INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Kaczmarek','Beata','FEMALE',2);
+
 commit;
