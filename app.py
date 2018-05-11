@@ -59,7 +59,7 @@ def validateLogin():
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
-        _username = request.form['inputEmail']
+        _username = request.form['inputUser']
         _password = request.form['inputPassword']
 
         cursor.callproc('sp_validateLogin', (_username,))
