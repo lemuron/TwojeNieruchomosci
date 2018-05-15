@@ -41,7 +41,9 @@ def userHome():
     conn = mysql.connect()
     if session.get('user'):
         cursor = conn.cursor(cursor=DictCursor)
-        cursor.execute("select pown.owner_name, pown.owner_surname, p.property_city, p.property_street, p.property_status from tbl_property p join tbl_property_owner pown on p.property_owner_id = pown.owner_id")
+        cursor.execute("select "
+                       "pown.owner_name, pown.owner_surname, p.property_city, p.property_street, p.property_status "
+                       "from tbl_property p join tbl_property_owner pown on p.property_owner_id = pown.owner_id")
         baselist = cursor.fetchall()
         return render_template('userHome.html', baselist=baselist)
     else:
@@ -59,7 +61,7 @@ def validateLogin():
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
-        _username = request.form['inputEmail']
+        _username = request.form['inputUser']
         _password = request.form['inputPassword']
 
         cursor.callproc('sp_validateLogin', (_username,))
