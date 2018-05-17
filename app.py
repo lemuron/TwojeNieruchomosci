@@ -9,7 +9,7 @@ app.secret_key = 'why would I tell you my secret key?'
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'x'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'samsung234'
 app.config['MYSQL_DATABASE_DB'] = 'BucketList'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
@@ -49,6 +49,16 @@ def userHome():
     else:
         return render_template('error.html', error='Musisz sie zalogować')
 
+@app.route('/adminHome')
+def adminHome():
+    conn = mysql.connect()
+    cursor = conn.cursor(cursor=DictCursor)
+    cursor.execute("select "
+                   "user_id, user_name, user_username "
+                   "from tbl_user")
+    baselist = cursor.fetchall()
+    return render_template('adminHome.html', baselist=baselist)
+
 
 @app.route('/logout')
 def logout():
@@ -64,17 +74,20 @@ def validateLogin():
         _username = request.form['inputUser']
         _password = request.form['inputPassword']
 
-        cursor.callproc('sp_validateLogin', (_username,))
-        data = cursor.fetchall()
+        if _username == 'admin':
+            return redirect('/adminHome')
+        else:
+            cursor.callproc('sp_validateLogin', (_username,))
+            data = cursor.fetchall()
 
-        if len(data) > 0:
-            if check_password_hash(str(data[0][3]), _password):
-                session['user'] = data[0][0]
-                return redirect('/userHome')
+            if len(data) > 0:
+                if check_password_hash(str(data[0][3]), _password):
+                    session['user'] = data[0][0]
+                    return redirect('/userHome')
+                else:
+                    return render_template('error.html', error='Zły adres email lub hasło')
             else:
                 return render_template('error.html', error='Zły adres email lub hasło')
-        else:
-            return render_template('error.html', error='Zły adres email lub hasło')
 
 
     except Exception as e:
