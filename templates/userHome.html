@@ -9,8 +9,9 @@
 
     <title>TwojeNieruchomości</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <link rel="stylesheet" href="../static/css/bootstrap-sidebar.css">
 
     <!-- Custom styles for this template -->
     <!--<link href="https://getbootstrap.com/docs/4.0/examples/jumbotron/jumbotron.css" rel="stylesheet">-->
@@ -22,69 +23,52 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">TwojeNieruchomości</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation" href="http://www.free-icons-download.net/images/office-building-icon-68706.png">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/baza">Baza</a>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">TwojeNieruchomości</a>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+              <a class="nav-link" href="/logout"><span class="fa fa-sign-out"></span> Wyloguj</a>
           </li>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/rachunki">Rachunki</a>
-          </li>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/raporty">Raporty</a>
-          </li>
-              </li>
         </ul>
 
-          <ul class="navbar-nav navbar-right">
-              <li><a class="nav-link" href="/logout"><span class="fa fa-sign-out"></span> Wyloguj</a></li>
-          </ul>
-
-      </div>
     </nav>
 
-    <main role="main">
-
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3"><br>...</h1>
-          <p>wykresy/statystyki tutaj :)</p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Nie klikaj w to!</a></p>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Link_1</a>
+                        </li>
+                        <li class="nav-item">costam2</li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Właściciel</th>
+                            <th>Adres nieruchomości</th>
+                            <th>??Aktualny status??</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in baselist %}
+                        <tr>
+                            <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
+                            <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
+                            <td>{{ data.property_status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
         </div>
-      </div>
+    </div> <!-- /container -->
 
-      <div class="container-fluid">
 
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Właściciel</th>
-                        <th>Adres nieruchomości</th>
-                        <th>??Aktualny status??</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for data in baselist %}
-                    <tr>
-                        <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
-                        <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
-                        <td>{{ data.property_status }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-      </div> <!-- /container -->
-
-    </main>
 
     <footer class="container-fluid">
       <p class="text-center">&copy; Company 2018</p>
