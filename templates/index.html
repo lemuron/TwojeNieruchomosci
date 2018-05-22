@@ -24,9 +24,20 @@
         <p>Aplikacja do zarządzania nieruchomościami</p>
       </div>
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
       <div class="form-label-group">
         <input type="text" name="inputUser" id="inputUser" class="form-control" placeholder="inputUser" required autofocus>
-        <label for="inputEmail">Nazwa użytkownika</label>
+        <label for="inputUser">Nazwa użytkownika</label>
       </div>
 
       <div class="form-label-group">

@@ -1,21 +1,21 @@
-from flask import Flask, render_template, json, request, redirect, session
+from flask import Flask, render_template, json, request, redirect, session, flash
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymysql.cursors import DictCursor
 
 mysql = MySQL()
-app = Flask(__name__)
-app.secret_key = 'why would I tell you my secret key?'
+application = Flask(__name__)
+application.secret_key = 'why would I tell you my secret key?'
 
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'student'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'student'
-app.config['MYSQL_DATABASE_DB'] = 'BucketList'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql.init_app(app)
+application.config['MYSQL_DATABASE_USER'] = 'student'
+application.config['MYSQL_DATABASE_PASSWORD'] = 'student'
+application.config['MYSQL_DATABASE_DB'] = 'BucketList'
+application.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(application)
 
 
-@app.route('/')
+@application.route('/')
 def main():
     if session.get('user'):
         return render_template('userHome.html')
@@ -23,12 +23,12 @@ def main():
         return render_template('index.html')
 
 
-@app.route('/showSignUp')
+@application.route('/showSignUp')
 def showSignUp():
     return render_template('showSignUp.html')
 
 
-@app.route('/showSignin')
+@application.route('/showSignin')
 def showSignin():
     if session.get('user'):
         return render_template('userHome.html')
@@ -36,7 +36,7 @@ def showSignin():
         return render_template('signin.html')
 
 
-@app.route('/userHome')
+@application.route('/userHome')
 def userHome():
     conn = mysql.connect()
     if session.get('user'):
@@ -50,13 +50,13 @@ def userHome():
         return render_template('error.html', error='Musisz sie zalogować')
 
 
-@app.route('/logout')
+@application.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect('/')
 
 
-@app.route('/validateLogin', methods=['POST'])
+@application.route('/validateLogin', methods=['GET', 'POST'])
 def validateLogin():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -72,19 +72,21 @@ def validateLogin():
                 session['user'] = data[0][0]
                 return redirect('/userHome')
             else:
-                return render_template('error.html', error='Zły adres email lub hasło')
+                flash("Zły login lub hasło")
+                return redirect('/')
         else:
-            return render_template('error.html', error='Zły adres email lub hasło')
-
+            flash("Zły login lub hasło")
+            return redirect('/')
 
     except Exception as e:
-        return render_template('error.html', error=str(e))
+        flash(str(e))
+        return redirect('/')
     finally:
         cursor.close()
         conn.close()
 
 
-@app.route('/signUp', methods=['POST', 'GET'])
+@application.route('/signUp', methods=['POST', 'GET'])
 def signUp():
     conn = mysql.connect()
     try:
@@ -117,4 +119,4 @@ def signUp():
 
 
 if __name__ == "__main__":
-    app.run(port=5002)
+    application.run(port=5000)
