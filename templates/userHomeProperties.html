@@ -7,10 +7,10 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/userHome"><span class="fa fa-home"></span> HOME</a>
+                            <a class="nav-link" href="/userHome"><span class="fa fa-home"></span> HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/userHomeProperties"><span class="fa fa-building"></span> Nieruchomości</a>
+                            <a class="nav-link active" href="/userHomeProperties"><span class="fa fa-building"></span> Nieruchomości</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><span class="fa fa-bed"></span> Najemcy</a>
@@ -28,16 +28,16 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Właściciel</th>
-                            <th>Adres nieruchomości</th>
+                            <th>Miasto</th>
+                            <th>Ulica</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for data in baselist %}
                         <tr>
-                            <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
-                            <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
+                            <td>{{ data.property_city }}</td>
+                            <td>{{ data.property_street }}</td>
                             <td>
                                 {% if data.property_status == 0 %}
                                     OK <span class="fa fa-check-circle" style="color:green"></span>

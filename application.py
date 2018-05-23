@@ -50,6 +50,19 @@ def userHome():
         return render_template('error.html', error='Musisz sie zalogować')
 
 
+@application.route('/userHomeProperties')
+def userHomeProperties():
+    conn = mysql.connect()
+    if session.get('user'):
+        cursor = conn.cursor(cursor=DictCursor)
+        cursor.execute("select "
+                       "p.property_city, p.property_street, p.property_status "
+                       "from tbl_property p")
+        baselist = cursor.fetchall()
+        return render_template('userHomeProperties.html', baselist=baselist)
+    else:
+        return render_template('error.html', error='Musisz sie zalogować')
+
 @application.route('/logout')
 def logout():
     session.pop('user', None)
@@ -119,4 +132,5 @@ def signUp():
 
 
 if __name__ == "__main__":
+    application.debug = True
     application.run(port=5000)
