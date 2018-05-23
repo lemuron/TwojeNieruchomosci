@@ -30,7 +30,7 @@
                         <tr>
                             <th>Właściciel</th>
                             <th>Adres nieruchomości</th>
-                            <th>??Aktualny status??</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +38,13 @@
                         <tr>
                             <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
                             <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
-                            <td>{{ data.property_status }}</td>
+                            <td>
+                                {% if data.property_status == 0 %}
+                                    OK <span class="fa fa-check-circle" style="color:green"></span>
+                                {% elif data.property_status != 0 %}
+                                    ERR <span class="fa fa-exclamation-circle" style="color:red"></span>
+                                {% endif %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
