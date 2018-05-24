@@ -8,7 +8,7 @@ CREATE TABLE `tbl_user` (
   UNIQUE KEY `user_id` (`user_id`)
 );
 
-DROP PROCEDURE IF EXISTS `sp_createUser`;
+DROP PROCEDURE IF EXISTS `sp_createUser` ;
 DELIMITER ;;
 CREATE PROCEDURE `sp_createUser`(
 	IN p_name VARCHAR(255),
@@ -29,8 +29,7 @@ BEGIN
 
 END ;;
 DELIMITER ;
-
-DROP PROCEDURE IF EXISTS `sp_validateLogin`;
+DROP PROCEDURE IF EXISTS `sp_validateLogin` ;
 DELIMITER ;;
 CREATE PROCEDURE `sp_validateLogin`(
 IN p_username VARCHAR(255)
@@ -39,7 +38,6 @@ BEGIN
     select * from tbl_user where user_name = p_username;
 END ;;
 DELIMITER ;
-
 
 DROP TABLE IF EXISTS `tbl_property_owner`;
 CREATE TABLE `tbl_property_owner` (
