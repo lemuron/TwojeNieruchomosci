@@ -2,16 +2,18 @@ from flask import Flask, render_template, json, request, redirect, session, flas
 from flaskext.mysql import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from pymysql.cursors import DictCursor
+import os
 
 mysql = MySQL()
 application = Flask(__name__)
 application.secret_key = 'why would I tell you my secret key?'
 
 # MySQL configurations
-application.config['MYSQL_DATABASE_USER'] = 'student'
-application.config['MYSQL_DATABASE_PASSWORD'] = 'student'
-application.config['MYSQL_DATABASE_DB'] = 'BucketList'
-application.config['MYSQL_DATABASE_HOST'] = 'localhost'
+application.config['MYSQL_DATABASE_USER'] = os.environ['RDS_USERNAME']
+application.config['MYSQL_DATABASE_PASSWORD'] = os.environ['RDS_PASSWORD']
+application.config['MYSQL_DATABASE_DB'] = os.environ['RDS_DB_NAME']
+application.config['MYSQL_DATABASE_HOST'] = os.environ['RDS_HOSTNAME']
+application.config['MYSQL_DATABASE_PORT'] = os.environ["RDS_PORT"]
 mysql.init_app(application)
 
 
