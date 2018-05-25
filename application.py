@@ -13,7 +13,6 @@ application.config['MYSQL_DATABASE_USER'] = os.environ['RDS_USERNAME']
 application.config['MYSQL_DATABASE_PASSWORD'] = os.environ['RDS_PASSWORD']
 application.config['MYSQL_DATABASE_DB'] = os.environ['RDS_DB_NAME']
 application.config['MYSQL_DATABASE_HOST'] = os.environ['RDS_HOSTNAME']
-application.config['MYSQL_DATABASE_PORT'] = os.environ["RDS_PORT"]
 mysql.init_app(application)
 
 
