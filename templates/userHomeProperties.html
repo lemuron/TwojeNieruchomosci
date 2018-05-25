@@ -36,7 +36,7 @@
                     <tbody>
                         {% for data in baselist %}
                         <tr>
-                            <td>{{ data.property_city }}</td>
+                            <td><a href="/userHomePropertyDetail?prop_id={{ data.property_id }}">{{ data.property_city }}</a></td>
                             <td>{{ data.property_street }}</td>
                             <td>
                                 {% if data.property_status == 0 %}

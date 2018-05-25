@@ -55,7 +55,7 @@ def userHomeProperties():
     conn = mysql.connect()
     if session.get('user'):
         cursor = conn.cursor(cursor=DictCursor)
-        cursor.execute("select "
+        cursor.execute("select p.property_id, "
                        "p.property_city, p.property_street, p.property_status "
                        "from tbl_property p")
         baselist = cursor.fetchall()
@@ -63,13 +63,21 @@ def userHomeProperties():
     else:
         return render_template('error.html', error='Musisz sie zalogować')
 
+
+@application.route('/userHomePropertyDetail', methods=['GET'])
+def userHomePropertyDetail():
+    prop_id = request.args['prop_id']
+    print(prop_id)
+    return render_template('userHomePropertyDetail.html', prop_id=prop_id)
+
+
 @application.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect('/')
 
 
-@application.route('/validateLogin', methods=['GET', 'POST'])
+@application.route('/validateLogin', methods=['POST'])
 def validateLogin():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -99,7 +107,7 @@ def validateLogin():
         conn.close()
 
 
-@application.route('/signUp', methods=['POST', 'GET'])
+@application.route('/signUp', methods=['POST'])
 def signUp():
     conn = mysql.connect()
     try:
