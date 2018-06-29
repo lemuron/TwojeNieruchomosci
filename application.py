@@ -67,8 +67,35 @@ def userHomeProperties():
 @application.route('/userHomePropertyDetail', methods=['GET'])
 def userHomePropertyDetail():
     prop_id = request.args['prop_id']
-    print(prop_id)
     return render_template('userHomePropertyDetail.html', prop_id=prop_id)
+
+
+@application.route('/userHomeTenants')
+def userHomeTenants():
+    conn = mysql.connect()
+    if session.get('user'):
+        cursor = conn.cursor(cursor=DictCursor)
+        cursor.execute("select l.locator_name, "
+                       "l.locator_surname, l.locator_gender, p.property_street, p.property_id "
+                       "from tbl_property p, tbl_property_locator l where l.property_id = p.property_id")
+        baselist = cursor.fetchall()
+        return render_template('userHomeTenents.html', baselist=baselist)
+    else:
+        return render_template('error.html', error='Musisz sie zalogować')
+
+
+@application.route('/userHomeOwners')
+def userHomeOwners():
+    conn = mysql.connect()
+    if session.get('user'):
+        cursor = conn.cursor(cursor=DictCursor)
+        cursor.execute("select o.owner_name, "
+                       "o.owner_surname, o.owner_gender, p.property_street, p.property_id "
+                       "from tbl_property p, tbl_property_owner o where o.owner_id = p.property_owner_id")
+        baselist = cursor.fetchall()
+        return render_template('userHomeOwners.html', baselist=baselist)
+    else:
+        return render_template('error.html', error='Musisz sie zalogować')
 
 
 @application.route('/logout')

@@ -10,11 +10,10 @@
                             <a class="nav-link" href="/userHome"><span class="fa fa-home"></span> HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="/userHomeProperties">
-                                <span class="fa fa-building"></span> Nieruchomości</a>
+                            <a class="nav-link" href="/userHomeProperties"><span class="fa fa-building"></span> Nieruchomości</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/userHomeTenants"><span class="fa fa-bed"></span> Najemcy</a>
+                            <a class="nav-link active" href="/userHomeTenants"><span class="fa fa-bed"></span> Najemcy</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/userHomeOwners"><span class="fa fa-handshake-o"></span> Właściciele</a>
@@ -26,17 +25,26 @@
                 </div>
             </nav>
             <main role="main" class="col-md-9 col-lg-10 ml-sm-auto">
-                <h3 class="m-bottom-20 underline" style="padding:20px">{{ prop_id }}</h3>
-                <dl class="row">
-                    <dt class="col-sm-3">Property ID:</dt>
-                    <dd class="col-sm-9">{{ prop_id }}</dd>
-
-                    <dt class="col-sm-3">Atrybut 2:</dt>
-                    <dd class="col-sm-9">Opis</dd>
-
-                    <dt class="col-sm-3">Atrybut 3:</dt>
-                    <dd class="col-sm-9">Opis</dd>
-                </dl>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Imie</th>
+                            <th>Nazwisko</th>
+                            <th>Plec</th>
+                            <th>Nieruchomosc</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in baselist %}
+                        <tr>
+                            <td>{{ data.locator_name }}</td>
+                            <td>{{ data.locator_surname }}</td>
+                            <td>{{ data.locator_gender }}</td>
+                            <td><a href="/userHomePropertyDetail?prop_id={{ data.property_id }}">{{ data.property_street }}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </main>
         </div>
     </div> <!-- /container -->
