@@ -7,7 +7,7 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/userHome"><span class="fa fa-home"></span> HOME</a>
+                            <a class="nav-link" href="/userHome"><span class="fa fa-home"></span> HOME</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/userHomeProperties"><span class="fa fa-building"></span> Nieruchomości</a>
@@ -16,7 +16,7 @@
                             <a class="nav-link" href="/userHomeTenants"><span class="fa fa-bed"></span> Najemcy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/userHomeOwners"><span class="fa fa-handshake-o"></span> Właściciele</a>
+                            <a class="nav-link active" href="/userHomeOwners"><span class="fa fa-handshake-o"></span> Właściciele</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><span class="fa fa-area-chart"></span> Raporty</a>
@@ -28,23 +28,21 @@
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Właściciel</th>
-                            <th>Adres nieruchomości</th>
-                            <th>Status</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Płeć</th>
+                            <th>Nieruchomość</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for data in baselist %}
                         <tr>
-                            <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
-                            <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
-                            <td>
-                                {% if data.property_status == 0 %}
-                                    OK <span class="fa fa-check-circle" style="color:green"></span>
-                                {% elif data.property_status != 0 %}
-                                    ERR <span class="fa fa-exclamation-circle" style="color:red"></span>
-                                {% endif %}
-                            </td>
+                            <tr>
+                            <td>{{ data.owner_name }}</td>
+                            <td>{{ data.owner_surname }}</td>
+                            <td>{{ data.owner_gender }}</td>
+                            <td><a href="/userHomePropertyDetail?prop_id={{ data.property_id }}">{{ data.property_street }}</a></td>
+                        </tr>
                         </tr>
                         {% endfor %}
                     </tbody>
