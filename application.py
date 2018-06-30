@@ -67,7 +67,15 @@ def userHomeProperties():
 @application.route('/userHomePropertyDetail', methods=['GET'])
 def userHomePropertyDetail():
     prop_id = request.args['prop_id']
-    return render_template('userHomePropertyDetail.html', prop_id=prop_id)
+    conn = mysql.connect()
+    cursor = conn.cursor(cursor=DictCursor)
+    cursor.execute("select p.property_id, "
+                   "p.property_city, p.property_street, p.property_status, "
+                   "po.owner_name, po.owner_surname, "
+                   "from tbl_property p, tbl_property_owner po, tbl_property_locator pl "
+                   "where p.property_owner_id=po.owner_id and p.property_id=pl.property_id")
+    baselist = cursor.fetchall()
+    return render_template('userHomePropertyDetail.html', baselist=baselist)
 
 
 @application.route('/userHomeTenants')
