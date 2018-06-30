@@ -75,7 +75,12 @@ def userHomePropertyDetail():
     cursor.execute("select o.owner_name, o.owner_surname from tbl_property_owner o "
                    "where o.owner_id = {0}".format(prop_details[0]['property_owner_id']))
     prop_owner = cursor.fetchall()
-    return render_template('userHomePropertyDetail.html', prop_details=prop_details[0], prop_owner=prop_owner[0])
+    cursor.execute("select l.locator_name, l.locator_surname from tbl_property_locator l "
+                   "where property_id = {0}".format(prop_details[0]['property_id']))
+    prop_locators = cursor.fetchall();
+    print(prop_locators)
+    return render_template('userHomePropertyDetail.html', prop_details=prop_details[0], prop_owner=prop_owner[0],
+                           prop_locators=prop_locators)
 
 
 @application.route('/userHomeTenants')
