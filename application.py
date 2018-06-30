@@ -166,6 +166,13 @@ def signUp():
         conn.close()
 
 
+@application.route('/PropertyAction', methods=['POST'])
+def PropertyAction():
+    checkbox_list = request.form.getlist('proplist')
+    print('zupa')
+    print(checkbox_list)
+    return redirect('/userHomeProperties')
+
 if __name__ == "__main__":
     application.debug = True
     application.run(port=5000)
