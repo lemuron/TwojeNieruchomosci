@@ -39,11 +39,7 @@
                             <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
                             <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
                             <td>
-                                {% if data.property_status == 0 %}
-                                    OK <span class="fa fa-check-circle" style="color:green"></span>
-                                {% elif data.property_status != 0 %}
-                                    ERR <span class="fa fa-exclamation-circle" style="color:red"></span>
-                                {% endif %}
+                                {{ PrepareStatusBody(data.property_status) | safe }}
                             </td>
                         </tr>
                         {% endfor %}

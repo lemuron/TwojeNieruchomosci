@@ -69,13 +69,13 @@ def userHomePropertyDetail():
     prop_id = request.args['prop_id']
     conn = mysql.connect()
     cursor = conn.cursor(cursor=DictCursor)
-    cursor.execute("select p.property_id, "
-                   "p.property_city, p.property_street, p.property_status, "
-                   "po.owner_name, po.owner_surname, "
-                   "from tbl_property p, tbl_property_owner po, tbl_property_locator pl "
-                   "where p.property_owner_id=po.owner_id and p.property_id=pl.property_id")
-    baselist = cursor.fetchall()
-    return render_template('userHomePropertyDetail.html', baselist=baselist)
+    cursor.execute("select p.property_id, p.property_city, p.property_street, p.property_status, p.property_owner_id "
+                   "from tbl_property p where p.property_id = {0}".format(prop_id))
+    prop_details = cursor.fetchall()
+    cursor.execute("select o.owner_name, o.owner_surname from tbl_property_owner o "
+                   "where o.owner_id = {0}".format(prop_details[0]['property_owner_id']))
+    prop_owner = cursor.fetchall()
+    return render_template('userHomePropertyDetail.html', prop_details=prop_details[0], prop_owner=prop_owner[0])
 
 
 @application.route('/userHomeTenants')
@@ -180,6 +180,16 @@ def PropertyAction():
     print('zupa')
     print(checkbox_list)
     return redirect('/userHomeProperties')
+
+
+@application.context_processor
+def utility_processor():
+    def PrepareStatusBody(status):
+        if status == 0:
+            return 'OK <span class="fa fa-check-circle" style="color:green"></span>'
+        if status == 1:
+            return 'ERR <span class="fa fa-exclamation-circle" style="color:red"></span>'
+    return dict(PrepareStatusBody=PrepareStatusBody)
 
 if __name__ == "__main__":
     application.debug = True
