@@ -1,3 +1,8 @@
+DROP DATABASE IF EXISTS `Bucketlist`;
+
+CREATE DATABASE `Bucketlist`;
+USE `Bucketlist`;
+
 DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE `tbl_user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -26,9 +31,19 @@ BEGIN
          (p_name, p_username, p_password)
 		;
 	end if;
-
 END ;;
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `sp_deleteProperty`;
+DELIMITER ;;
+CREATE PROCEDURE `sp_deleteProperty`(
+IN p_property_id BIGINT(20)
+)
+  BEGIN
+    delete from tbl_property where property_id =  p_property_id;
+  end;
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS `sp_validateLogin` ;
 DELIMITER ;;
 CREATE PROCEDURE `sp_validateLogin`(
@@ -40,6 +55,7 @@ END ;;
 DELIMITER ;
 
 DROP TABLE IF EXISTS `tbl_property_owner`;
+DELIMITER ;;
 CREATE TABLE `tbl_property_owner` (
   `owner_id`      BIGINT(20)  NOT NULL AUTO_INCREMENT,
   `owner_name`    VARCHAR(64) NOT NULL,
@@ -48,11 +64,13 @@ CREATE TABLE `tbl_property_owner` (
   PRIMARY KEY (`owner_id`),
   UNIQUE KEY `owner_id` (`owner_id`)
 );
+DELIMITER ;
 INSERT INTO tbl_property_owner (owner_name, owner_surname, owner_gender) VALUES ('Zajac', 'Tobiasz', 'MALE');
 INSERT INTO tbl_property_owner (owner_name, owner_surname, owner_gender) VALUES ('Nowicki', 'Slawomir', 'MALE');
 
 
 DROP TABLE IF EXISTS `tbl_property`;
+DELIMITER ;;
 CREATE TABLE `tbl_property` (
   `property_id`       BIGINT(20) NOT NULL AUTO_INCREMENT,
   `property_owner_id` BIGINT(20),
@@ -67,9 +85,12 @@ CREATE TABLE `tbl_property` (
   PRIMARY KEY (`property_id`),
   UNIQUE KEY `property_id` (`property_id`)
 );
+DELIMITER ;
 INSERT INTO tbl_property (property_owner_id, property_street, property_city, property_zip, property_status) VALUES (1, 'Dzwinska 37', 'Bialystok', '15-161', 0);
 INSERT INTO tbl_property (property_owner_id, property_street, property_city, property_zip, property_status) VALUES (2, 'Maloszynska 44', 'Wroclaw', '54-014', 0);
 
+DROP TABLE IF EXISTS `tbl_property_locator`;
+DELIMITER ;;
 CREATE TABLE `tbl_property_locator` (
   `locator_id`      BIGINT(20) NOT NULL AUTO_INCREMENT,
   `locator_name`    VARCHAR(255) NOT NULL,
@@ -83,6 +104,7 @@ CREATE TABLE `tbl_property_locator` (
   PRIMARY KEY (`locator_id`),
   UNIQUE KEY `locator_id` (`locator_id`)
 );
+DELIMITER ;
 INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Majewska','Zofia','FEMALE',1);
 INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Wisniewska','Brygida','FEMALE',1);
 INSERT INTO tbl_property_locator (locator_name, locator_surname, locator_gender, property_id) VALUES ('Chmielewski','Bogumil','MALE',2);

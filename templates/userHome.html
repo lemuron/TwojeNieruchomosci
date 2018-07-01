@@ -39,7 +39,7 @@
                             <td>{{ data.owner_name }} {{ data.owner_surname }}</td>
                             <td>{{ data.property_city }}, ul. {{ data.property_street }}</td>
                             <td>
-                                {{ PrepareStatusBody(data.property_status) | safe }}
+                                {{ prepareStatusBody(data.property_status) | safe }}
                             </td>
                         </tr>
                         {% endfor %}

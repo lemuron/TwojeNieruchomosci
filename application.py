@@ -76,7 +76,12 @@ def userHomePropertyDetail():
     cursor.execute("select o.owner_name, o.owner_surname from tbl_property_owner o "
                    "where o.owner_id = {0}".format(prop_details[0]['property_owner_id']))
     prop_owner = cursor.fetchall()
-    return render_template('userHomePropertyDetail.html', prop_details=prop_details[0], prop_owner=prop_owner[0])
+    cursor.execute("select l.locator_name, l.locator_surname from tbl_property_locator l "
+                   "where property_id = {0}".format(prop_details[0]['property_id']))
+    prop_locators = cursor.fetchall()
+    print(prop_locators)
+    return render_template('userHomePropertyDetail.html', prop_details=prop_details[0], prop_owner=prop_owner[0],
+                           prop_locators=prop_locators)
 
 
 @application.route('/userHomeTenants')
@@ -175,22 +180,35 @@ def signUp():
         conn.close()
 
 
-@application.route('/PropertyAction', methods=['POST'])
-def PropertyAction():
-    checkbox_list = request.form.getlist('proplist')
-    print('zupa')
-    print(checkbox_list)
-    return redirect('/userHomeProperties')
+@application.route('/propertyAction', methods=['POST'])
+def propertyAction():
+    conn = mysql.connect()
+    try:
+        checkbox_list = request.form.getlist('proplist')
+        print(checkbox_list)
+        cursor = conn.cursor()
+        for prop in checkbox_list:
+            print(prop)
+            cursor.callproc('sp_deleteProperty', prop)
+
+        data = cursor.fetchall()
+        if len(data) is 0:
+            conn.commit()
+            return redirect("/userHomeProperties")
+        else:
+            return json.dumps({'proc_error': str(data[0])})
+    except Exception as e:
+        return json.dumps({'general_error': str(e)})
 
 
 @application.context_processor
 def utility_processor():
-    def PrepareStatusBody(status):
+    def prepareStatusBody(status):
         if status == 0:
             return 'OK <span class="fa fa-check-circle" style="color:green"></span>'
         if status == 1:
             return 'ERR <span class="fa fa-exclamation-circle" style="color:red"></span>'
-    return dict(PrepareStatusBody=PrepareStatusBody)
+    return dict(prepareStatusBody=prepareStatusBody)
 
 if __name__ == "__main__":
     application.debug = True

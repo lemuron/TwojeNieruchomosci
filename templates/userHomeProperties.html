@@ -25,46 +25,37 @@
                 </div>
             </nav>
             <main role="main" class="col-md-9 col-lg-10 ml-sm-auto">
-                <from class="form-horizontal" action="/PropertyAction" method="POST">
-{#                    <div class="btn-group" style="margin: 8px">#}
-{#                    <button type="submit" class="btn btn-primary">Dodaj</button>#}
-{#                    <button type="submit" class="btn btn-primary">Usuń</button>#}
-{#                    </div>#}
-                    <table class="table table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>ID</th>
-                                <th>Miasto</th>
-                                <th>Ulica</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for data in baselist %}
-                            <tr>
-                                <td>
-                                    <div class="form-check custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name="proplist" id="ids_{{ data.property_id }}" value="{{ data.property_id }}">
-                                        <label class="custom-control-label" for="ids_{{ data.property_id }}">
-                                            <a href="/userHomePropertyDetail?prop_id={{ data.property_id }}">{{ data.property_id }}</a>
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>{{ data.property_city }}</td>
-                                <td>{{ data.property_street }}</td>
-                                <td>
-                                    {% if data.property_status == 0 %}
-                                        OK <span class="fa fa-check-circle" style="color:green"></span>
-                                    {% elif data.property_status != 0 %}
-                                        ERR <span class="fa fa-exclamation-circle" style="color:red"></span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-primary" style="margin: 8px">Usuń</button>
-                </from>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Miasto</th>
+                            <th>Ulica</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in baselist %}
+                        <tr>
+                            <td>
+                                <div class="form-check custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="proplist" id="ids_{{ data.property_id }}" value="{{ data.property_id }}">
+                                    <label class="custom-control-label" for="ids_{{ data.property_id }}">
+                                        <a href="/userHomePropertyDetail?prop_id={{ data.property_id }}"> {{ data.property_id }} &#x261A</a>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{ data.property_city }}</td>
+                            <td>{{ data.property_street }}</td>
+                            <td>{{ prepareStatusBody(data.property_status) | safe }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-group" style="margin: 8px">
+                <button id="addusr" class="btn btn-primary">Dodaj</button>
+                <button id="delusr" class="btn btn-primary">Usuń</button>
+                </div>
             </main>
         </div>
     </div> <!-- /container -->
