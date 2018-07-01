@@ -77,7 +77,7 @@ def userHomePropertyDetail():
     prop_owner = cursor.fetchall()
     cursor.execute("select l.locator_name, l.locator_surname from tbl_property_locator l "
                    "where property_id = {0}".format(prop_details[0]['property_id']))
-    prop_locators = cursor.fetchall();
+    prop_locators = cursor.fetchall()
     print(prop_locators)
     return render_template('userHomePropertyDetail.html', prop_details=prop_details[0], prop_owner=prop_owner[0],
                            prop_locators=prop_locators)
@@ -179,22 +179,22 @@ def signUp():
         conn.close()
 
 
-@application.route('/PropertyAction', methods=['POST'])
-def PropertyAction():
+@application.route('/propertyAction', methods=['POST'])
+def propertyAction():
     checkbox_list = request.form.getlist('proplist')
     print('zupa')
     print(checkbox_list)
-    return redirect('/userHomeProperties')
+    return json.dumps({'message': 'Something happen'})
 
 
 @application.context_processor
 def utility_processor():
-    def PrepareStatusBody(status):
+    def prepareStatusBody(status):
         if status == 0:
             return 'OK <span class="fa fa-check-circle" style="color:green"></span>'
         if status == 1:
             return 'ERR <span class="fa fa-exclamation-circle" style="color:red"></span>'
-    return dict(PrepareStatusBody=PrepareStatusBody)
+    return dict(prepareStatusBody=prepareStatusBody)
 
 if __name__ == "__main__":
     application.debug = True
