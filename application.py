@@ -181,10 +181,23 @@ def signUp():
 
 @application.route('/propertyAction', methods=['POST'])
 def propertyAction():
-    checkbox_list = request.form.getlist('proplist')
-    print('zupa')
-    print(checkbox_list)
-    return json.dumps({'message': 'Something happen'})
+    conn = mysql.connect()
+    try:
+        checkbox_list = request.form.getlist('proplist')
+        print(checkbox_list)
+        cursor = conn.cursor()
+        for prop in checkbox_list:
+            print(prop)
+            cursor.callproc('sp_deleteProperty', prop)
+
+        data = cursor.fetchall()
+        if len(data) is 0:
+            conn.commit()
+            return redirect("/userHomeProperties")
+        else:
+            return json.dumps({'proc_error': str(data[0])})
+    except Exception as e:
+        return json.dumps({'general_error': str(e)})
 
 
 @application.context_processor

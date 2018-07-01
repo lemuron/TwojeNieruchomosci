@@ -25,10 +25,6 @@
                 </div>
             </nav>
             <main role="main" class="col-md-9 col-lg-10 ml-sm-auto">
-{#                    <div class="btn-group" style="margin: 8px">#}
-{#                    <button type="submit" class="btn btn-primary">Dodaj</button>#}
-{#                    <button type="submit" class="btn btn-primary">Usuń</button>#}
-{#                    </div>#}
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -45,7 +41,7 @@
                                 <div class="form-check custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" name="proplist" id="ids_{{ data.property_id }}" value="{{ data.property_id }}">
                                     <label class="custom-control-label" for="ids_{{ data.property_id }}">
-                                        <a href="/userHomePropertyDetail?prop_id={{ data.property_id }}">{{ data.property_id }}</a>
+                                        <a href="/userHomePropertyDetail?prop_id={{ data.property_id }}"> {{ data.property_id }} &#x261A</a>
                                     </label>
                                 </div>
                             </td>
@@ -56,7 +52,10 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <button id="delusr" class="btn btn-primary" style="margin: 8px">Usuń</button>
+                <div class="btn-group" style="margin: 8px">
+                <button id="addusr" class="btn btn-primary">Dodaj</button>
+                <button id="delusr" class="btn btn-primary">Usuń</button>
+                </div>
             </main>
         </div>
     </div> <!-- /container -->
