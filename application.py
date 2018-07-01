@@ -184,18 +184,21 @@ def propertyAction():
     conn = mysql.connect()
     try:
         checkbox_list = request.form.getlist('proplist')
-        print(checkbox_list)
-        cursor = conn.cursor()
-        for prop in checkbox_list:
-            print(prop)
-            cursor.callproc('sp_deleteProperty', prop)
+        operation = request.form.getlist('operation')[0]
 
-        data = cursor.fetchall()
-        if len(data) is 0:
-            conn.commit()
-            return redirect("/userHomeProperties")
+        if operation == 'delete':
+            cursor = conn.cursor()
+            for prop in checkbox_list:
+                cursor.callproc('sp_deleteProperty', prop)
+
+            data = cursor.fetchall()
+            if len(data) is 0:
+                conn.commit()
+                return redirect('/userHomeProperties')
+            else:
+                return json.dumps({'proc_error': str(data[0])})
         else:
-            return json.dumps({'proc_error': str(data[0])})
+            return json.dumps({"message": "operation \'{0}\' not supported!".format(operation)})
     except Exception as e:
         return json.dumps({'general_error': str(e)})
 
