@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS `Bucketlist`;
+DROP DATABASE IF EXISTS `ebdb`;
 
-CREATE DATABASE `Bucketlist`;
-USE `Bucketlist`;
+CREATE DATABASE `ebdb`;
+USE `ebdb`;
 
 DROP TABLE IF EXISTS `tbl_user`;
 CREATE TABLE `tbl_user` (
